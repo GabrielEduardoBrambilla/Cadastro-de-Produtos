@@ -78,6 +78,12 @@ public class ProdutoCadV extends javax.swing.JFrame {
 
         jLabel2.setText("Nome");
 
+        cadPrice.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cadPriceKeyTyped(evt);
+            }
+        });
+
         jLabel3.setText("Preço");
 
         jLabel4.setText("Quantidade");
@@ -85,6 +91,11 @@ public class ProdutoCadV extends javax.swing.JFrame {
         cadQtd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cadQtdActionPerformed(evt);
+            }
+        });
+        cadQtd.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cadQtdKeyTyped(evt);
             }
         });
 
@@ -189,7 +200,10 @@ public class ProdutoCadV extends javax.swing.JFrame {
             {
                    JOptionPane.showMessageDialog(null, "Dados Inválidos");
                    cadName.requestFocus();
-            }                                               
+            }else{
+             
+            }
+             
 
     }//GEN-LAST:event_cadSubmitButtonActionPerformed
 
@@ -213,6 +227,22 @@ public class ProdutoCadV extends javax.swing.JFrame {
     private void cadQtdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadQtdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cadQtdActionPerformed
+
+    private void cadPriceKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cadPriceKeyTyped
+        // TODO add your handling code here:
+                char c = evt.getKeyChar();
+        if(!Character.isDigit((c))){
+            evt.consume();
+        }
+    }//GEN-LAST:event_cadPriceKeyTyped
+
+    private void cadQtdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cadQtdKeyTyped
+        // TODO add your handling code here:
+                char c = evt.getKeyChar();
+        if(!Character.isDigit((c))){
+            evt.consume();
+        }
+    }//GEN-LAST:event_cadQtdKeyTyped
 
     /**
      * @param args the command line arguments

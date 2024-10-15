@@ -16,9 +16,9 @@ public class ConexaoBanco {
 //Construtor
     public ConexaoBanco() {
         this.servidor = "200.195.171.122";
-        this.banco = "grupo09_3pturma2";
-        this.usuario = "grupo09";
-        this.senha = "G34Mhs55Tzbcf2El";
+        this.banco = "grupo06_Brambilla";
+        this.usuario = "grupo06";
+        this.senha = "xyZ4d6lGuJ4EfOz0";
     }
     public boolean conectar(){
         try
