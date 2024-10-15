@@ -25,6 +25,9 @@ public class CadProdutoM {
          this.price = price;
          this.qtd = qtd;
     }
+    public CadProdutoM(int id){
+           this.id = id;
+    }
 
     public int getId() {
         return id;

@@ -4,7 +4,12 @@
  */
 package view;
 
+import dao.CadProdutoDao;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
+import javax.swing.table.DefaultTableModel;
+import model.CadProdutoM;
 
 /**
  *
@@ -42,6 +47,9 @@ public class ProdutoCadV extends javax.swing.JFrame {
         cadSubmitButton = new javax.swing.JButton();
         listProd = new javax.swing.JButton();
         editProd = new javax.swing.JButton();
+        editProd1 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        Table = new javax.swing.JTable();
 
         Tb01.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -124,6 +132,26 @@ public class ProdutoCadV extends javax.swing.JFrame {
             }
         });
 
+        editProd1.setText("Deletear produto");
+        editProd1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editProd1ActionPerformed(evt);
+            }
+        });
+
+        Table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "id", "Nome", "Preço", "Quantidade", "Descrição"
+            }
+        ));
+        jScrollPane2.setViewportView(Table);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -131,9 +159,6 @@ public class ProdutoCadV extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5)
                     .addComponent(cadDesc, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(cadSubmitButton, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
@@ -143,55 +168,152 @@ public class ProdutoCadV extends javax.swing.JFrame {
                             .addComponent(cadPrice, javax.swing.GroupLayout.Alignment.LEADING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(cadQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(listProd, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(editProd, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4)
+                                .addComponent(cadQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(editProd1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(listProd, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(editProd, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(listProd, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(editProd, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, 0)
-                .addComponent(cadName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cadPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(listProd, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(editProd, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cadName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(editProd1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(11, 11, 11)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cadPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cadQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cadQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cadDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(cadSubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addComponent(cadDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cadSubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+      private void iniciarTabela()
+    {
+        
+
+                try
+                {
+
+
+                    limparTabela();
+                    CadProdutoDao cadastroPDao = new CadProdutoDao();
+                    ArrayList<CadProdutoM> listaCadastros;
+                    listaCadastros = cadastroPDao.consultar(); //consulta todos os registros da tabela Escola
+
+                    //Resgata o modelo da tabela            
+                    DefaultTableModel modeloTabela = (DefaultTableModel) Table.getModel();
+
+                    for(CadProdutoM cadastroP : listaCadastros)
+                    {
+                        //adiciona em cada linha da tabela da tela o conteúdo de cada posição da listaEscolas
+                        modeloTabela.addRow(new String[]{Integer.toString(cadastroP.getId()), 
+                                                                          cadastroP.getName(), 
+                                                                          cadastroP.getDesc(), 
+                                                                          String.valueOf(cadastroP.getPrice()),
+                                                                          String.valueOf(cadastroP.getQtd())});
+                    }
+
+                }
+                catch(Exception ex)
+                {
+                    JOptionPane.showMessageDialog(null, "Ocorreu um erro inesperado:\n" + ex.getMessage(), "ERRO!", ERROR_MESSAGE);
+                }
+     
+    }
+ 
+      private void atualizaTabela(CadProdutoDao cadastroPDao)
+    {
+        
+
+                try
+                {
+
+
+                    limparTabela();
+
+                    ArrayList<CadProdutoM> listaCadastros;
+                    listaCadastros = cadastroPDao.consultar(); //consulta todos os registros da tabela Escola
+
+                    //Resgata o modelo da tabela            
+                    DefaultTableModel modeloTabela = (DefaultTableModel) Table.getModel();
+
+                    for(CadProdutoM cadastroP : listaCadastros)
+                    {
+                        //adiciona em cada linha da tabela da tela o conteúdo de cada posição da listaEscolas
+                        modeloTabela.addRow(new String[]{Integer.toString(cadastroP.getId()), 
+                                                                          cadastroP.getName(), 
+                                                                          cadastroP.getDesc(), 
+                                                                          String.valueOf(cadastroP.getPrice()),
+                                                                          String.valueOf(cadastroP.getQtd())});
+                    }
+
+                }
+                catch(Exception ex)
+                {
+                    JOptionPane.showMessageDialog(null, "Ocorreu um erro inesperado:\n" + ex.getMessage(), "ERRO!", ERROR_MESSAGE);
+                }
+     
+    }
+ 
+    private void limparCampos()
+    {
+        cadPrice.setText("");
+        cadName.setText("");
+        cadDesc.setText("");
+        cadQtd.setText("");
+    }
+    
+     private void limparTabela()
+    {
+        //percorre a tabela e exclui todas as linhas
+        while(Table.getRowCount() > 0) 
+        {
+            DefaultTableModel dm = (DefaultTableModel) Table.getModel();
+            dm.getDataVector().removeAllElements();
+        }
+    }
+
+    
     private void cadSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadSubmitButtonActionPerformed
-        System.out.println(cadPrice.getText());
-        cadPrice.getText();
-        cadName.getText();
-        cadDesc.getText();
-        cadQtd.getText();
         
          if((cadPrice.getText().trim().isEmpty()) 
                || (cadName.getText().trim().isEmpty()) 
@@ -201,7 +323,26 @@ public class ProdutoCadV extends javax.swing.JFrame {
                    JOptionPane.showMessageDialog(null, "Dados Inválidos");
                    cadName.requestFocus();
             }else{
-             
+                try
+                {    
+                    
+                    CadProdutoM cadastroP = new CadProdutoM();
+
+                  cadastroP.setName(cadName.getText());
+                  cadastroP.setDesc(cadDesc.getText());
+                  cadastroP.setQtd(Integer.parseInt(cadQtd.getText()));
+                  cadastroP.setPrice(Integer.parseInt(cadPrice.getText()));         
+                  CadProdutoDao cadastroPDao = new CadProdutoDao();
+                  cadastroPDao.inserir(cadastroP); 
+                  limparTabela();
+                  atualizaTabela(cadastroPDao);
+                  limparCampos(); 
+                  
+                }
+                catch(Exception ex)
+                {
+                    JOptionPane.showMessageDialog(null, "Ocorreu um erro inesperado:\n" + ex.getMessage(), "ERRO!", ERROR_MESSAGE);
+                } 
             }
              
 
@@ -218,10 +359,13 @@ public class ProdutoCadV extends javax.swing.JFrame {
 
     private void listProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listProdActionPerformed
         // TODO add your handling code here:
+        iniciarTabela();
     }//GEN-LAST:event_listProdActionPerformed
 
     private void editProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editProdActionPerformed
         // TODO add your handling code here:
+        
+        new ProdutoEdit().setVisible(true);
     }//GEN-LAST:event_editProdActionPerformed
 
     private void cadQtdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadQtdActionPerformed
@@ -243,6 +387,13 @@ public class ProdutoCadV extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_cadQtdKeyTyped
+
+    private void editProd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editProd1ActionPerformed
+        // TODO add your handling code here:
+            // TODO add your handling code here:
+        new ProdutoDelete().setVisible(true);
+
+    }//GEN-LAST:event_editProd1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -281,6 +432,7 @@ public class ProdutoCadV extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable Table;
     private javax.swing.JTable Tb01;
     private javax.swing.JTextField cadDesc;
     private javax.swing.JTextField cadName;
@@ -288,12 +440,14 @@ public class ProdutoCadV extends javax.swing.JFrame {
     private javax.swing.JTextField cadQtd;
     private javax.swing.JButton cadSubmitButton;
     private javax.swing.JButton editProd;
+    private javax.swing.JButton editProd1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton listProd;
     // End of variables declaration//GEN-END:variables
 }
